@@ -33,6 +33,7 @@ export interface Sip {
   extraHeaders: ExtraHeaders;
   iceServers: IceServers;
   debug: boolean;
+  displayName: string;
 }
 export const sipPropType = PropTypes.shape({
   status: PropTypes.string,
@@ -49,6 +50,7 @@ export const sipPropType = PropTypes.shape({
   extraHeaders: extraHeadersPropType,
   iceServers: iceServersPropType,
   debug: PropTypes.bool,
+  displayName: PropTypes.string
 });
 
 export interface Call {
