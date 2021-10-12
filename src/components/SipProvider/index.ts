@@ -47,6 +47,7 @@ export default class SipProvider extends React.Component<
     extraHeaders: ExtraHeaders;
     iceServers: IceServers;
     debug: boolean;
+    displayName: string;
   },
   {
     sipStatus: SipStatus;
@@ -82,6 +83,7 @@ export default class SipProvider extends React.Component<
     extraHeaders: extraHeadersPropType,
     iceServers: iceServersPropType,
     debug: PropTypes.bool,
+    displayName: PropTypes.string,
 
     children: PropTypes.node,
   };
@@ -99,6 +101,7 @@ export default class SipProvider extends React.Component<
     extraHeaders: { register: [], invite: [] },
     iceServers: [],
     debug: false,
+    displayName: "",
 
     children: null,
   };
@@ -309,7 +312,7 @@ export default class SipProvider extends React.Component<
       this.ua = null;
     }
 
-    const { host, port, pathname, user, password, autoRegister } = this.props;
+    const { host, port, pathname, user, password, autoRegister, displayName } = this.props;
 
     if (!host || !port || !user) {
       this.setState({
@@ -329,6 +332,7 @@ export default class SipProvider extends React.Component<
         password,
         sockets: [socket],
         register: autoRegister,
+        display_name: displayName
       });
     } catch (error) {
       this.logger.debug("Error", error.message, error);
