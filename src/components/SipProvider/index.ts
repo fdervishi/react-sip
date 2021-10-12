@@ -273,12 +273,23 @@ export default class SipProvider extends React.Component<
     }
 
     const { iceServers, sessionTimersExpires } = this.props;
-    const extraHeaders = this.props.extraHeaders.invite;
+    let extraHeaders = this.props.extraHeaders.invite;
 
-    if(typeof(callExtraHeaders) === typeof(Array)){
-      extraHeaders?.concat(...callExtraHeaders);
+    if(extraHeaders)
+    {
+      if(callExtraHeaders && Array.isArray(callExtraHeaders) && Array.isArray(extraHeaders))
+      { 
+        extraHeaders = extraHeaders.concat(callExtraHeaders);
+      }
     }
-
+    else 
+    {
+      if(callExtraHeaders && Array.isArray(callExtraHeaders))
+      { 
+        extraHeaders = callExtraHeaders;
+      }
+    }
+    
     const options = {
       extraHeaders,
       mediaConstraints: { audio: true, video: false },
