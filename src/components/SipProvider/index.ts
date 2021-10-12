@@ -249,7 +249,7 @@ export default class SipProvider extends React.Component<
     });
   };
 
-  public startCall = (destination) => {
+  public startCall = (destination, callExtraHeaders) => {
     if (!destination) {
       throw new Error(`Destination must be defined (${destination} given)`);
     }
@@ -274,6 +274,10 @@ export default class SipProvider extends React.Component<
 
     const { iceServers, sessionTimersExpires } = this.props;
     const extraHeaders = this.props.extraHeaders.invite;
+
+    if(typeof(callExtraHeaders) === typeof(Array)){
+      extraHeaders?.concat(...callExtraHeaders);
+    }
 
     const options = {
       extraHeaders,
