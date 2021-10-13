@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/callthemonline/react-sip#readme",
   "dependencies": {
-    "jssip": "^3.2.15",
+    "jssip": "^3.8.2",
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {
