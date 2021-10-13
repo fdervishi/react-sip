@@ -483,14 +483,6 @@ export default class SipProvider extends React.Component<
 
         this.setState({ rtcSession });
 
-        [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();        
-        rtcSession.connection.addEventListener('addstream', function (e) {
-          this.remoteAudio.srcObject = e.stream;
-          this.remoteAudio.play();
-        });
-
-        this.setState({ callStatus: CALL_STATUS_ACTIVE });
-
         rtcSession.on("failed", () => {
           if (this.ua !== ua) {
             return;
@@ -517,49 +509,34 @@ export default class SipProvider extends React.Component<
           });
         });
 
-        // rtcSession.on("peerconnection", (data) => {
-        //   if (this.ua !== ua) {
-        //     return;
-        //   }
+        rtcSession.on("accepted", () => {
+          if (this.ua !== ua) {
+            return;
+          }
 
-        //   [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
-        //   console.log('this.remoteAudio', this.remoteAudio);
-        //   rtcSession.connection.addEventListener('addstream', function (e) {
-        //     this.remoteAudio.srcObject = e.stream;
-        //     this.remoteAudio.play();
-        // });
+          [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
+          const played = this.remoteAudio.play();
 
-        //   this.setState({ callStatus: CALL_STATUS_ACTIVE });
-        // });
+          if (typeof played !== "undefined") {
+            played
+              .catch(() => {
+                /**/
+              })
+              .then(() => {
+                setTimeout(() => {
+                  this.remoteAudio.play();
+                }, 2000);
+              });
+            this.setState({ callStatus: CALL_STATUS_ACTIVE });
+            return;
+          }
 
-        // rtcSession.on("accepted", () => {
-        //   if (this.ua !== ua) {
-        //     return;
-        //   }
+          setTimeout(() => {
+            this.remoteAudio.play();
+          }, 2000);
 
-        //   [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
-        //   const played = this.remoteAudio.play();
-
-        //   if (typeof played !== "undefined") {
-        //     played
-        //       .catch(() => {
-        //         /**/
-        //       })
-        //       .then(() => {
-        //         setTimeout(() => {
-        //           this.remoteAudio.play();
-        //         }, 2000);
-        //       });
-        //     this.setState({ callStatus: CALL_STATUS_ACTIVE });
-        //     return;
-        //   }
-
-        //   setTimeout(() => {
-        //     this.remoteAudio.play();
-        //   }, 2000);
-
-        //   this.setState({ callStatus: CALL_STATUS_ACTIVE });
-        // });
+          this.setState({ callStatus: CALL_STATUS_ACTIVE });
+        });
 
         if (
           this.state.callDirection === CALL_DIRECTION_INCOMING &&
