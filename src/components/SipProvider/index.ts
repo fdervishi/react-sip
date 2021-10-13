@@ -511,6 +511,9 @@ export default class SipProvider extends React.Component<
         });
 
         rtcSession.on("accepted", () => {
+
+          console.log('accepted');
+
           if (this.ua !== ua) {
             return;
           }
