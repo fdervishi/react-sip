@@ -517,31 +517,32 @@ export default class SipProvider extends React.Component<
 
           [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
 
-          const played = this.remoteAudio.play();
+          // const played = this.remoteAudio.play();
+          this.remoteAudio.play();
 
-          if (typeof played !== "undefined") {
+          // if (typeof played !== "undefined") {
 
-            console.log('typeof played !== "undefined"');
+          //   console.log('typeof played !== "undefined"');
 
-            played
-              .catch(() => {
-                /**/
-                console.log('played catch');
-              })
-              .then(() => {
-                setTimeout(() => {
-                  console.log('played catch then');
-                  this.remoteAudio.play();
-                }, 2000);
-              });
-            this.setState({ callStatus: CALL_STATUS_ACTIVE });
-            return;
-          }
+          //   played
+          //     .catch(() => {
+          //       /**/
+          //       console.log('played catch');
+          //     })
+          //     .then(() => {
+          //       setTimeout(() => {
+          //         console.log('played catch then');
+          //         this.remoteAudio.play();
+          //       }, 2000);
+          //     });
+          //   this.setState({ callStatus: CALL_STATUS_ACTIVE });
+          //   return;
+          // }
 
-          setTimeout(() => {
-            console.log('setTimeout');
-            this.remoteAudio.play();
-          }, 2000);
+          // setTimeout(() => {
+          //   console.log('setTimeout');
+          //   this.remoteAudio.play();
+          // }, 2000);
 
           this.setState({ callStatus: CALL_STATUS_ACTIVE });
         });
