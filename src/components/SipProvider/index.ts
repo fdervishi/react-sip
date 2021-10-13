@@ -541,6 +541,7 @@ export default class SipProvider extends React.Component<
           // }, 2000);
 
           this.setState({ callStatus: CALL_STATUS_ACTIVE });
+          return;
         });
 
         // rtcSession.on("accepted", () => {
