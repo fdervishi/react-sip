@@ -458,15 +458,6 @@ export default class SipProvider extends React.Component<
             callCounterpart:
               foundUri.substring(0, delimiterPosition) || foundUri,
           });
-
-          [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
-          rtcSession.connection.addEventListener('addstream', function (e) {
-            this.remoteAudio.srcObject = e.stream;
-            this.remoteAudio.play();
-          });
-
-          this.setState({ callStatus: CALL_STATUS_ACTIVE });
-
         } else if (originator === "remote") {
           const foundUri = rtcRequest.from.toString();
           const delimiterPosition = foundUri.indexOf(";") || null;
@@ -491,6 +482,15 @@ export default class SipProvider extends React.Component<
         }
 
         this.setState({ rtcSession });
+
+        [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();        
+        rtcSession.connection.addEventListener('addstream', function (e) {
+          this.remoteAudio.srcObject = e.stream;
+          this.remoteAudio.play();
+        });
+
+        this.setState({ callStatus: CALL_STATUS_ACTIVE });
+
         rtcSession.on("failed", () => {
           if (this.ua !== ua) {
             return;
