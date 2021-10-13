@@ -518,30 +518,9 @@ export default class SipProvider extends React.Component<
           data.peerconnection.addEventListener('addstream', function (e) {
             this.remoteAudio.srcObject = e.stream;
             this.remoteAudio.play();
-        })
-
-          // const played = this.remoteAudio.play();
-
-          // if (typeof played !== "undefined") {
-          //   played
-          //     .catch(() => {
-          //       /**/
-          //     })
-          //     .then(() => {
-          //       setTimeout(() => {
-          //         this.remoteAudio.play();
-          //       }, 2000);
-          //     });
-          //   this.setState({ callStatus: CALL_STATUS_ACTIVE });
-          //   return;
-          // }
-
-          // setTimeout(() => {
-          //   this.remoteAudio.play();
-          // }, 2000);
+          });
 
           this.setState({ callStatus: CALL_STATUS_ACTIVE });
-          return;
         });
 
         // rtcSession.on("accepted", () => {
