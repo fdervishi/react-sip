@@ -520,9 +520,11 @@ export default class SipProvider extends React.Component<
 
           [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
 
-          // const played = this.remoteAudio.play();
           this.remoteAudio.play();
 
+          this.setState({ callStatus: CALL_STATUS_ACTIVE });
+
+          // const played = this.remoteAudio.play();
           // if (typeof played !== "undefined") {
 
           //   console.log('typeof played !== "undefined"');
@@ -547,7 +549,7 @@ export default class SipProvider extends React.Component<
           //   this.remoteAudio.play();
           // }, 2000);
 
-          this.setState({ callStatus: CALL_STATUS_ACTIVE });
+          // this.setState({ callStatus: CALL_STATUS_ACTIVE });
         });
 
         if (
