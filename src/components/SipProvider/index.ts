@@ -351,7 +351,8 @@ export default class SipProvider extends React.Component<
         register: autoRegister,
         display_name: displayName
       });
-    } catch (error) {
+    } 
+    catch (error) {
       this.logger.debug("Error", error.message, error);
       this.setState({
         sipStatus: SIP_STATUS_ERROR,
@@ -515,17 +516,21 @@ export default class SipProvider extends React.Component<
           }
 
           [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
+
           const played = this.remoteAudio.play();
 
-          console.log('played', played);
-
           if (typeof played !== "undefined") {
+
+            console.log('typeof played !== "undefined"');
+
             played
               .catch(() => {
                 /**/
+                console.log('played catch');
               })
               .then(() => {
                 setTimeout(() => {
+                  console.log('played catch then');
                   this.remoteAudio.play();
                 }, 2000);
               });
@@ -534,6 +539,7 @@ export default class SipProvider extends React.Component<
           }
 
           setTimeout(() => {
+            console.log('setTimeout');
             this.remoteAudio.play();
           }, 2000);
 
