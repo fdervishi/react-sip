@@ -275,6 +275,7 @@ export default class SipProvider extends React.Component<
     const { iceServers, sessionTimersExpires } = this.props;
     let extraHeaders = this.props.extraHeaders.invite;
 
+    
     if(extraHeaders)
     {
       if(callExtraHeaders && Array.isArray(callExtraHeaders) && Array.isArray(extraHeaders))
@@ -290,6 +291,8 @@ export default class SipProvider extends React.Component<
       }
     }
     
+    console.log('ExtraHeaders', extraHeaders);
+
     const options = {
       extraHeaders,
       mediaConstraints: { audio: true, video: false },
