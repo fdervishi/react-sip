@@ -458,6 +458,15 @@ export default class SipProvider extends React.Component<
             callCounterpart:
               foundUri.substring(0, delimiterPosition) || foundUri,
           });
+
+          [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
+          rtcSession.connection.addEventListener('addstream', function (e) {
+            this.remoteAudio.srcObject = e.stream;
+            this.remoteAudio.play();
+          });
+
+          this.setState({ callStatus: CALL_STATUS_ACTIVE });
+
         } else if (originator === "remote") {
           const foundUri = rtcRequest.from.toString();
           const delimiterPosition = foundUri.indexOf(";") || null;
@@ -508,20 +517,20 @@ export default class SipProvider extends React.Component<
           });
         });
 
-        rtcSession.on("peerconnection", (data) => {
-          if (this.ua !== ua) {
-            return;
-          }
+        // rtcSession.on("peerconnection", (data) => {
+        //   if (this.ua !== ua) {
+        //     return;
+        //   }
 
-          [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
+        //   [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
+        //   console.log('this.remoteAudio', this.remoteAudio);
+        //   rtcSession.connection.addEventListener('addstream', function (e) {
+        //     this.remoteAudio.srcObject = e.stream;
+        //     this.remoteAudio.play();
+        // });
 
-          data.peerconnection.addEventListener('addstream', function (e) {
-            this.remoteAudio.srcObject = e.stream;
-            this.remoteAudio.play();
-          });
-
-          this.setState({ callStatus: CALL_STATUS_ACTIVE });
-        });
+        //   this.setState({ callStatus: CALL_STATUS_ACTIVE });
+        // });
 
         // rtcSession.on("accepted", () => {
         //   if (this.ua !== ua) {
