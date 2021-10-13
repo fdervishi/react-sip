@@ -254,8 +254,7 @@ export default class SipProvider extends React.Component<
       throw new Error(`Destination must be defined (${destination} given)`);
     }
     if (
-      this.state.sipStatus !== SIP_STATUS_CONNECTED &&
-      this.state.sipStatus !== SIP_STATUS_REGISTERED
+      this.state.sipStatus !== SIP_STATUS_CONNECTED //&& this.state.sipStatus !== SIP_STATUS_REGISTERED
     ) {
       throw new Error(
         `Calling startCall() is not allowed when sip status is ${
