@@ -513,8 +513,7 @@ export default class SipProvider extends React.Component<
             return;
           }
 
-          [ this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
-          // const played = this.remoteAudio.play();
+          [this.remoteAudio.srcObject, ] = rtcSession.connection.getRemoteStreams();
           const played = this.remoteAudio.play();
 
           if (typeof played !== "undefined") {
